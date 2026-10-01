@@ -148,31 +148,31 @@ và quyết định thiết kế, không chép lại toàn bộ QA.
 
 | Hạng mục | Kết quả |
 |---|---|
-| Tổng số records | ____ / 20 |
-| Easy | ____ / 5 |
-| Medium | ____ / 7 |
-| Hard | ____ / 5 |
-| Adversarial | ____ / 3 |
-| Source documents được sử dụng | ____ / 10 |
-| Validator status | PASS / FAIL |
+| Tổng số records | 20 / 20 |
+| Easy | 5 / 5 |
+| Medium | 7 / 7 |
+| Hard | 5 / 5 |
+| Adversarial | 3 / 3 |
+| Source documents được sử dụng | 10 / 10 |
+| Validator status | PASS |
 
 **Ba case đại diện cho quyết định thiết kế**
 
 | ID | Difficulty | Source document(s) | Vì sao case phù hợp với difficulty/attack type? |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
+| M03 | Medium | `06_warranty_policy.md`, `07_repair_and_technical_support.md` | Kết hợp loại lỗi được bảo hành, thời hạn PulsePhone X, quy trình sau return window và điều kiện loaner. Cần cả hai nguồn để nêu đủ availability, identity verification và deposit USD 200; đây là kết hợp thông tin, chưa cần xử lý phiên bản chính sách. |
+| H01 | Hard | `09_escalation_and_policy_updates.md` | Phải chọn version 1.0 theo ngày đặt hàng August 31 dù giao hàng sau September 1, rồi tính cửa sổ từ ngày confirmed delivery. OrbitPlus active không vượt được ngoại lệ đơn cũ: vẫn 21 ngày, không phải 45 ngày. Độ khó đến từ hai mốc thời gian và ngoại lệ membership. |
+| A03 | Adversarial — false premise | `00_system_scope.md`, `08_accounts_privacy_and_security.md` | Câu hỏi giả định biết order number đồng nghĩa có quyền truy cập. Expected answer phải bác bỏ tiền đề, yêu cầu verified authorization theo policy và giữ giới hạn không tiết lộ dữ liệu khách khác hoặc xem live order. Scope evidence và privacy evidence cùng hỗ trợ hành vi này. |
 
 **Điểm khó nhất khi xây dựng expected answer hoặc evidence là gì?**
 
-> *Câu trả lời:*
+> Khó nhất là giữ đúng điều kiện và ngoại lệ khi câu trả lời kết hợp nhiều quy tắc. H01/H05 phân biệt ngày đặt hàng quyết định version với ngày giao hàng bắt đầu đếm return days; H02 phân biệt opened-device window và miễn restocking cho verified defect; H04 giữ ngoại lệ diagnostic fee đã được miễn trước shipment. H03 có phép tính USD 320 × 90% = USD 288, được suy ra từ giá và mã giảm hợp lệ trong question rồi đối chiếu minimum USD 300 sau discounts trong nguồn. Mỗi claim đã được đối chiếu với các contexts của chính QA; không dùng chính sách thực tế ngoài corpus. Các đoạn evidence được trích trực tiếp từ file nguồn, rút đến câu hoặc đoạn cần thiết, không sửa wording. Validator PASS xác nhận cấu trúc/provenance; việc review ngữ nghĩa và difficulty được thực hiện riêng bằng đối chiếu question, expected answer và evidence.
 
 **Xác nhận:**
 
-- [ ] Mọi claim trong expected answer đều có evidence hỗ trợ.
-- [ ] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
-- [ ] `python validate_golden_dataset.py` báo `PASS`.
+- [x] Mọi claim trong expected answer đều có evidence hỗ trợ.
+- [x] Không có questions trùng ý và không dùng kiến thức ngoài corpus.
+- [x] `python validate_golden_dataset.py` báo `PASS`.
 
 ### Exercise 3.2 — Benchmark Run
 
